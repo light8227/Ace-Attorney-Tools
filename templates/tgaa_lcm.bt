@@ -1,0 +1,31 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+LittleEndian();
+struct camData {
+    uint64 pointer;
+    local int stay = FTell();
+    if (pointer != 0) {
+        FSeek(pointer);
+        uint32 test[54];
+        FSeek(stay);
+    };
+};
+struct header {
+    char magic[4];
+    uint16 unk;
+    uint16 count;
+};
+struct lcm {
+    header Header<optimize=false>;
+    camData cameraData[Header.count]<optimize=false, name = pointer>;
+}LCM;

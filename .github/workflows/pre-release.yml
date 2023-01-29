@@ -1,0 +1,32 @@
+---
+name: "pre-release"
+
+on:
+  push:
+    branches:
+      - "main"
+    tags-ignore:
+      - "*"
+
+jobs:
+  gh_pre_release:
+    runs-on: "ubuntu-latest"
+    #env:
+    #  JEST_VERBOSE: ${{ secrets.JEST_VERBOSE }}
+
+    steps:
+      - name: "Checkout source code"
+        uses: "actions/checkout@v2.3.4"
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Automatic Releases
+        uses: marvinpinto/action-automatic-releases@v1.2.1
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: '*'
+
